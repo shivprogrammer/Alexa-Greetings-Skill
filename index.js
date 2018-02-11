@@ -2,7 +2,11 @@ exports.handler = function (event, context) {
   var request = event.request;
 
   if (request.type === 'LaunchRequest') {
-
+    buildResponse({
+      speechText: 'Welcome to the Greetings skill, where you can kindly greet your guests with my soothing voice.',
+      repromptText: 'Who would you like to greet? You can say for example, say hello to John.',
+      endSession: false
+    });
   }
   else if (request.type === 'IntentRequest') {
 
@@ -35,4 +39,5 @@ function buildResponse(options) {
       }
     };
   }
+  return response;
 }
