@@ -31,6 +31,24 @@ exports.handler = function (event, context) {
   }
 };
 
+function getWish() {
+  var myDate = new Date();
+  var hours = myDate.getUTCHours() - 8;
+  if (hours < 0) {
+    hours += 24;
+  }
+
+  if (hours < 12) {
+    return 'Good Morning. ';
+  }
+  else if (hours < 18) {
+    return 'Good Afternoon ';
+  }
+  else {
+    return 'Good Evenning. ';
+  }
+}
+
 function buildResponse(options) {
   var response = {
     version: '1.0',
