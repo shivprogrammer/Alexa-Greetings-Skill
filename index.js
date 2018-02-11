@@ -2,13 +2,13 @@ exports.handler = function (event, context) {
   var request = event.request;
 
   if (request.type === 'LaunchRequest') {
-    var options = {};
-    options.speechText = 'Welcome to the Greetings skill, where you can kindly greet your guests with my soothing voice.';
-    options.repromptText = 'Who would you like to greet? You can say for example, say hello to John.';
+    let options = {};
+    options.speechText = 'Welcome to the Greetings skill, where you can kindly greet your guests with my soothing voice. Who would you like to greet?';
+    options.repromptText = 'You can say for example, say hello to John.';
     options.endSession = false;
-
     context.succeed(buildResponse(options));
   }
+
   else if (request.type === 'IntentRequest') {
 
   }
