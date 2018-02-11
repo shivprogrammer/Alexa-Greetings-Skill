@@ -1,0 +1,23 @@
+{
+  "name": "Alexa-Greetings-Skill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivprogrammer/Alexa-Greetings-Skill.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivprogrammer/Alexa-Greetings-Skill/issues"
+  },
+  "homepage": "https://github.com/shivprogrammer/Alexa-Greetings-Skill#readme",
+  "devDependencies": {
+    "eslint-config-rallycoding": "^3.2.0"
+  }
+}
