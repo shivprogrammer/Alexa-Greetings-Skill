@@ -1,3 +1,5 @@
+'use strict';
+
 exports.handler = function (event, context) {
   var request = event.request;
 
@@ -10,8 +12,17 @@ exports.handler = function (event, context) {
   }
 
   else if (request.type === 'IntentRequest') {
-
+    let options = {};
+    if (request.intent.name === 'HelloIntent') {
+      let name = request.intent.slots.FirstName.value;
+      options.speechText = 'Hello ' + name + '.';
+      options.speechText += getWish();
+    }
+    else {
+      context.fail('Unknown Intent');
+    }
   }
+
   else if (request.type === 'SessionEndedRequest') {
 
   }
