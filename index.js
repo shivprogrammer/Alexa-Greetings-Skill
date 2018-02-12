@@ -1,5 +1,7 @@
 'use strict';
 
+var http = require('http');
+
 exports.handler = function (event, context) {
   try {
     var request = event.request;
@@ -18,8 +20,16 @@ exports.handler = function (event, context) {
         let name = request.intent.slots.FirstName.value;
         options.speechText = 'Hello ' + name + '.';
         options.speechText += getWish();
-        options.endSession = true;
-        context.succeed(buildResponse(options));
+        getQuote((quote, err) => {
+          if (err) {
+            context.fail(err);
+          }
+          else {
+            options.speechText += quote;
+            options.endSession = true;
+            context.succeed(buildResponse(options));
+          }
+        });
       }
       else {
         throw 'Unknown intent';
@@ -33,24 +43,6 @@ exports.handler = function (event, context) {
     context.fail('Exception: ' + err);
   }
 };
-
-function getWish() {
-  var myDate = new Date();
-  var hours = myDate.getUTCHours() - 8;
-  if (hours < 0) {
-    hours += 24;
-  }
-
-  if (hours < 12) {
-    return ' Good Morning.';
-  }
-  else if (hours < 18) {
-    return ' Good Afternoon.';
-  }
-  else {
-    return ' Good Evenning.';
-  }
-}
 
 function buildResponse(options) {
   var response = {
@@ -73,4 +65,43 @@ function buildResponse(options) {
     };
   }
   return response;
+}
+
+function getWish() {
+  var myDate = new Date();
+  var hours = myDate.getUTCHours() - 8;
+  if (hours < 0) {
+    hours += 24;
+  }
+
+  if (hours < 12) {
+    return ' Good Morning.';
+  }
+  else if (hours < 18) {
+    return ' Good Afternoon.';
+  }
+  else {
+    return ' Good Evenning.';
+  }
+}
+
+function getQuote(callback) {
+  var url = 'http://api.forismatic.com/api/1.0/json?method=getQuote&lang=en&format=json';
+  var req = http.get(url, (res) => {
+    var body = '';
+
+    res.on('data', (chunk) => {
+      body += chunk;
+    });
+
+    res.on('end', () => {
+      body = body.replace(/\\/g, '');
+      var quote = JSON.parse(body);
+      callback(quote.quoteText);
+    });
+  });
+
+  req.on('error', (err) => {
+    callback('', err);
+  });
 }
