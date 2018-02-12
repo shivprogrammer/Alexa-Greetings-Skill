@@ -75,13 +75,13 @@ function getWish() {
   }
 
   if (hours < 12) {
-    return ' Good Morning.';
+    return ' Good Morning. ';
   }
   else if (hours < 18) {
-    return ' Good Afternoon.';
+    return ' Good Afternoon. ';
   }
   else {
-    return ' Good Evenning.';
+    return ' Good Evenning. ';
   }
 }
 
