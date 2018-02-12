@@ -5,6 +5,9 @@
     "attributes": {},
     "user": {
       "userId": "usr123"
+    },
+    "application": {
+      "applicationId": "amzn1.ask.skill.c1579111-32cb-48f5-a9fb-160734146b5a"
     }
   },
   "version": "1.0",
